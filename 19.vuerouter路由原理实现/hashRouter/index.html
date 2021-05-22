@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- router-link -->
+  <!-- <a href="#/">首页</a>
+  <a href="#/about">关于</a> -->
+
+  <!-- 点击元素不为a元素时 -->
+  <span onclick="routerChange('/')">首页</span>
+  <span onclick="routerChange('/about')">关于</span>
+
+
+  <!-- router-view -->
+  <div id="view"></div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded',() => {
+      view.innerHTML = location.hash.slice(1);
+    })
+
+    window.addEventListener('hashchange',() => {
+      view.innerHTML = location.hash.slice(1)
+    })
+
+
+    // 不为a元素时点击
+    function routerChange(pathname) {
+      location.hash = pathname;
+    }
+  </script>
+</body>
+</html>
