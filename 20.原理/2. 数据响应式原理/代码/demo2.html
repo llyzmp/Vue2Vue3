@@ -1,0 +1,26 @@
+<script src="./vue.min.js"></script>
+<script>
+  var user = {
+    name: 'monica',
+    age: 17,
+    addr: {
+      province: '黑龙江',
+      city: '哈尔滨',
+    },
+    students: [
+      { name: '小王', age: 5 },
+      { name: '小张', age: 6 },
+    ],
+  };
+  Vue.observable(user);
+  // 从此以后，user里面所有的东西都是响应式的
+  // user.students[0] =  {} // 无响应式
+
+  // 真的如此吗？
+  // user.sex = '女'; // 此时，数据响应式的处理已经结束了，此时属性是一个普通属性
+  // delete user.age; // vue能知道我删除了属性吗？不能！
+
+  function haha(){
+    console.log(user.name)
+  }
+</script>

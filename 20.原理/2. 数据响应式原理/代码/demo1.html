@@ -1,0 +1,25 @@
+<script>
+  var obj = {
+    name: 'monica',
+    age: 17,
+  };
+
+  var internalAge = 17;
+  Object.defineProperty(obj, 'age', {
+    get() {
+      // getter
+      // 当读取属性值时会运行该函数，该函数的返回结果即属性值
+      console.log('你正在读取age属性，我可以做一些别的事情');
+      return internalAge;
+    },
+    set(newVal) {
+      // console.log('set', newVal);
+      method();
+      internalAge = newVal;
+    },
+  });
+
+  function method() {
+    console.log('method');
+  }
+</script>

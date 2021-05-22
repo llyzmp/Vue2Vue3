@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{title}}</h1>
+    </div>
+
+    <script src="./vue.min.js"></script>
+    <script>
+      var div1 = document.getElementById('app');
+      var vm = new Vue({
+        // 组件配置
+        data: {
+          title: 'Hello Vue!!!',
+        },
+        template: '<ul><li>{{title}}</li></ul>',
+        // render(h) {
+        //   // 目标，创建虚拟dom：这个组件到底要显示啥
+        //   // h是一个函数，专门用于创建虚拟dom
+        //   console.log('render');
+        //   var vnode = h(
+        //     'div',
+        //     {
+        //       // 虚拟dom的一些配置
+        //       attrs: {
+        //         id: 'app',
+        //       },
+        //     },
+        //     // 子元素
+        //     [h('h1', `标题：${this.title}`)]
+        //   );
+        //   console.log(vnode);
+        //   // var div = document.createElement("div")
+        //   // div.id = "app";
+        //   // var h1 = document.createElement("h1")
+        //   return vnode;
+        // },
+      });
+
+      vm.$mount('#app');
+
+      var div2 = document.getElementById('app');
+      console.log(div1 === div2);
+    </script>
+  </body>
+</html>
