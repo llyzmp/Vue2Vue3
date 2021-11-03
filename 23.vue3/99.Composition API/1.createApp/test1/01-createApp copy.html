@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    x: {{position.x}}
+    y: {{position.y}}
+  </div>
+  <script type="module">
+    import { createApp, reactive, onMounted, onUnmounted } from './node_modules/vue/dist/vue.esm-browser.js'
+    // reactive 把一个对象转换为响应式对象,该对象的嵌套对象也会转换为响应式,返回的是一个promise
+    // 抽离封装鼠标移动获取坐标函数
+    function useMousePosition() {
+      const position = reactive({
+        x: 0,
+        y: 0
+      })
+      const update = e => {
+        position.x = e.pageX
+        position.y = e.pageY
+      }
+      onMounted(() => {
+        window.addEventListener('mousemove', update)
+      })
+      onUnmounted(() => {
+        window.removeEventListener('mousemove', update)
+      })
+      return position
+    }
+
+    const app = createApp({
+      setup(props) {
+        // 第一个参数props
+        // 第二个参数 context,attrs,emit,slots
+        const position = useMousePosition()
+        return {
+          position
+        }
+      },
+      mounted() {
+        this.position.x = 1000
+      }
+    })
+
+    console.log(app);
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
