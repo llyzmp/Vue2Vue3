@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="increase">按钮</button>
+    <span>{{count}}</span>
+  </div>
+  <script type="module">
+    import { createApp, ref } from './node_modules/vue/dist/vue.esm-browser.js'
+  
+    // 抽离
+    function useCount() {
+      const count = ref(0)
+      
+      return {
+        count,
+        increase: () => {
+          count.value++
+        }
+      }
+    }
+
+    const app = createApp({
+      setup(props) {
+       return  { ...useCount() }
+      }
+    })
+
+    console.log(app)
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
