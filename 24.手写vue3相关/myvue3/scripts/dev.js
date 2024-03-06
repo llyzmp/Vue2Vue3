@@ -20,7 +20,7 @@ build({
   // IIFE 在创建时立即执行
   format: f.startsWith('global') ? 'iife' : f === 'cjs' ? 'cjs' : 'esm',
   // 打包后的全局名字
-  globalName: resolve(__dirname, `../packages${target}/package.json`).buildOptions?.name,
+  globalName: require(resolve(__dirname, `../packages/${target}/package.json`)).buildOptions?.name,
   // 运行平台
   platform: f === 'cjs' ? 'node' : 'browser',
   // watch: {

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写Vue3</title>
+</head>
+<body>
+  手写版本
+  <div id="id"></div>
+  <script src="./packages/reactivity/dist/reactivity.global.js"></script>
+  <script>
+    const { effect, reactive } = VueReactivity
+    
+    let a = {
+      name: '跳跳',
+      age: 2,
+      getName() {
+        return this.name
+      },
+      friend: {
+        name: '糯米',
+        age: 1,
+        xxx() {
+          return this.age
+        }
+      }
+    }
+    // console.log('reactive', reactive);
+    let p1 = reactive(a)
+    let p2 = reactive(a)
+    let p3 = reactive(p1)
+    // p1 === p2 true
+    console.log(p1 === p2);
+    console.log(p1 === p3);
+  </script>
+</body>
+</html>
