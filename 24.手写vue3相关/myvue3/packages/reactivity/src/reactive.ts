@@ -30,3 +30,7 @@ export function toReactive(value) {
   return isObject(value) ? reactive(value) : value
 }
 
+// 判断数据是否为reactive
+export function isReactive(value) {
+  return !!(value && value[ReactiveFlags.IS_REACTIVE])
+}
