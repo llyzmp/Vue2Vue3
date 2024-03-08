@@ -4,7 +4,7 @@ class ReactiveEffect {
   public parent = null
   public deps = []
   public active = true
-  constructor(public fn, public scheduler) {
+  constructor(public fn, public scheduler?) {
 
   }
   run() {
@@ -30,10 +30,17 @@ class ReactiveEffect {
 
 
 
-export function effect(fn, options: any = {}) {
-  const _effect = new ReactiveEffect(fn, options.scheduler)
+export function effect(fn, options) {
+  const _effect = new ReactiveEffect(fn)
   // // 立即调用一次
   // _effect.run()
+  if(options) {
+    Object.assign(_effect, options)
+  }
+  if(!options) {
+    _effect.run()
+  }
+
   // 返回函数，自定义随时调用
   const runner = _effect.run.bind(_effect)
   runner.effect = _effect
