@@ -24,3 +24,9 @@ export function reactive(target) {
 export function toRaw(proxy) {
   return proxy && proxy[ReactiveFlags.RAW]
 }
+
+// 把数据转换为reactive
+export function toReactive(value) {
+  return isObject(value) ? reactive(value) : value
+}
+
