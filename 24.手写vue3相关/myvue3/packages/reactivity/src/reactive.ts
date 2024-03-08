@@ -18,3 +18,9 @@ export function reactive(target) {
   // 返回代理对象
   return proxy
 }
+
+
+// 根据代理对象，获取其原始对象
+export function toRaw(proxy) {
+  return proxy && proxy[ReactiveFlags.RAW]
+}

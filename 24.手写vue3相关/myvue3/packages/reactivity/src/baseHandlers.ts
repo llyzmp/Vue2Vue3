@@ -3,7 +3,8 @@ import { reactive } from "./reactive";
 import { track, trigger } from "./effect";
 
 export const enum ReactiveFlags {
-  IS_REACTIVE = '__v_isReactive'
+  IS_REACTIVE = '__v_isReactive',
+  RAW = '__V_RAW'
 }
 
 export const mutableHandlers = {
@@ -12,6 +13,8 @@ export const mutableHandlers = {
     console.log(`访问了${key as string}属性`);
     if (key === ReactiveFlags.IS_REACTIVE) {
       return true
+    } else if(key === ReactiveFlags.RAW) {
+      return target
     }
     // 收集依赖： 记录谁使用了当前属性值
     track(target, 'get', key) // 由哪个对象的什么属性来收集依赖，activeEffect

@@ -10,7 +10,7 @@
   <div id="app"></div>
   <script src="./packages/reactivity/dist/reactivity.global.js"></script>
   <script>
-    const { effect, reactive } = VueReactivity
+    const { effect, reactive, toRaw } = VueReactivity
     
     let a = {
       name: '跳跳',
@@ -28,22 +28,23 @@
     }
     // console.log('reactive', reactive);
     let p1 = reactive(a)
-
     // let p2 = reactive(a)
     // let p3 = reactive(p1)
     // // p1 === p2 true
     // console.log(p1 === p2);
     // console.log(p1 === p3);
 
-    const ef = effect(() => {
-      document.querySelector('#app').innerHTML =  `小猫叫${p1.name}, 今年${p1.age}岁了`
-      console.log(p1.name);
-    }, {scheduler(){
-      console.log('自定义函数');
-    }})
+    // const ef = effect(() => {
+    //   document.querySelector('#app').innerHTML =  `小猫叫${p1.name}, 今年${p1.age}岁了`
+    //   console.log(p1.name);
+    // }, {scheduler(){
+    //   console.log('自定义函数');
+    // }})
     // ef()
-    console.log(p1.name);
-
+    // console.log(p1.name);
+      console.log(p1);
+      let b = toRaw(p1)
+      
   </script>
 </body>
 </html>
