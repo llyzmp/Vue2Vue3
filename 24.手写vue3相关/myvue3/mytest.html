@@ -34,23 +34,22 @@
     // console.log(p1 === p2);
     // console.log(p1 === p3);
 
-    // const ef = effect(() => {
-    //   document.querySelector('#app').innerHTML =  `小猫叫${p1.name}, 今年${p1.age}岁了`
-    //   console.log(p1.name);
-    // }, {scheduler(){
-    //   console.log('自定义函数');
-    // }})
-    // ef()
+    const ef = effect(() => {
+      document.querySelector('#app').innerHTML =  `小猫叫${p1.name}, 今年${p1.age}岁了`
+      console.log(p1.name);
+    }, {scheduler(){
+      console.log('自定义函数');
+    }})
     // console.log(p1.name);
       // console.log(p1);
       // let b = toRaw(p1)
       // let c = ref(111)
       // const age = toRef(p1, 'age')
-      const { name, age } = toRefs(p1)
-      console.log('name age: ',name, age);
-      effect(() => {
-        document.querySelector('#app').innerHTML = `测试一下${age.value}`
-      })
+      // const { name, age } = toRefs(p1)
+      // console.log('name age: ',name, age);
+      // effect(() => {
+      //   document.querySelector('#app').innerHTML = `测试一下${age.value}`
+      // })
 
   </script>
 </body>

@@ -1,5 +1,5 @@
 import { isArray } from "@vue/shared"
-import { activeEffect } from "./effect"
+import { activeEffect, trackEffects, triggerEffects } from "./effect"
 import { toReactive } from "./reactive"
 
 class Refimpl {
@@ -13,12 +13,7 @@ class Refimpl {
   get value() {
     // 收集依赖
     if(activeEffect) {
-      const shouldTrack = !this.dep.has(activeEffect)
-      if(shouldTrack) {
-        //  相互收集
-        this.dep.add(activeEffect)
-        activeEffect.deps.push(this.dep)
-      }
+      trackEffects(this.dep)
     }
     return this._value
   }
@@ -26,17 +21,7 @@ class Refimpl {
     if (newValue !== this._rawValue) {
       this._rawValue = newValue
       this._value = toReactive(newValue)
-      // 改变引用关系
-      const effects: any = new Set(this.dep)
-      effects.forEach(effect => {
-        if(effect !== activeEffect) {
-          if(effect.scheduler) {
-            effect.scheduler()
-          } else {
-            effect.run()
-          }
-        }
-      })
+      triggerEffects(this.dep)
     }
   }
 }

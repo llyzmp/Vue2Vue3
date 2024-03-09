@@ -1,6 +1,6 @@
 export let activeEffect = undefined
 
-class ReactiveEffect {
+export class ReactiveEffect {
   public parent = null
   public deps = []
   public active = true
@@ -37,6 +37,7 @@ export function effect(fn, options) {
   if(options) {
     Object.assign(_effect, options)
   }
+  console.log('option', options, _effect);
   if(!options) {
     _effect.run()
   }
@@ -80,13 +81,18 @@ export function track(target, type, key) {
       depsMap.set(key, dep)
     }
 
-    const shouldTrack = !dep.has(activeEffect)
+    trackEffects(dep)
+  }
+}
+
+export function trackEffects(dep) {
+  const shouldTrack = !dep.has(activeEffect)
     if (shouldTrack) {
       dep.add(activeEffect)
       activeEffect.deps.push(dep)
     }
-  }
 }
+
 // 清除依赖绑定关系
 function cleanupEffect(effect) {
   const { deps } = effect
@@ -100,7 +106,12 @@ export function trigger(target, type, key, newValue, oldValue) {
   if(!target) return
   let effects = depsMap.get(key)
   if (effects) {
-    effects = new Set(effects)
+    triggerEffects(effects)
+  }
+}
+
+export function triggerEffects(dep) {
+  const effects: any = new Set(dep)
     effects.forEach(effect => {
       if (effect !== activeEffect) {
         if (effect.scheduler) {
@@ -110,5 +121,4 @@ export function trigger(target, type, key, newValue, oldValue) {
         }
       }
     });
-  }
 }
