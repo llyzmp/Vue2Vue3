@@ -1,3 +1,4 @@
+import { isArray } from "@vue/shared"
 import { activeEffect } from "./effect"
 import { toReactive } from "./reactive"
 
@@ -60,4 +61,13 @@ class ObjectRefImpl {
 // 使代理对象解构出来的值，依赖具有响应式
 export function toRef(object, key) {
   return new ObjectRefImpl(object, key)
+}
+
+// 
+export function toRefs (object) {
+  let ret = isArray(object) ? new Array(object.length) : {}
+  for(let key in object) {
+    ret[key] = toRef(object, key)
+  }
+  return ret
 }

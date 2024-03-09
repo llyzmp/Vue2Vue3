@@ -7,3 +7,7 @@ export function isObject(value) {
 export const isFunction = (value) => {
   return typeof value === 'function'
 }
+
+export const isArray = (value) => {
+  return Array.isArray(value)
+}
