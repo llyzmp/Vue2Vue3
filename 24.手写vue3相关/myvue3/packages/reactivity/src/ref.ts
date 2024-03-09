@@ -44,3 +44,20 @@ class Refimpl {
 export function ref(value) {
   return new Refimpl(value)
 }
+
+class ObjectRefImpl {
+  constructor(public object, public key) {
+
+  }
+  get value() {
+    return this.object[this.key]
+  }
+  set value(newValue) {
+    this.object[this.key] = newValue
+  }
+}
+
+// 使代理对象解构出来的值，依赖具有响应式
+export function toRef(object, key) {
+  return new ObjectRefImpl(object, key)
+}

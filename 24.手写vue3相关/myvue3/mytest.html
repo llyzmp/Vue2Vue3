@@ -10,7 +10,7 @@
   <div id="app"></div>
   <script src="./packages/reactivity/dist/reactivity.global.js"></script>
   <script>
-    const { effect, reactive, toRaw, ref } = VueReactivity
+    const { effect, reactive, toRaw, ref, toRef } = VueReactivity
     
     let a = {
       name: '跳跳',
@@ -44,11 +44,13 @@
     // console.log(p1.name);
       // console.log(p1);
       // let b = toRaw(p1)
-      let c = ref(111)
-
+      // let c = ref(111)
+      const age = toRef(p1, 'age')
+      console.log('age', age);
       effect(() => {
-        document.querySelector('#app').innerHTML = `测试一下${c.value}`
+        document.querySelector('#app').innerHTML = `测试一下${age.value}`
       })
+
   </script>
 </body>
 </html>
